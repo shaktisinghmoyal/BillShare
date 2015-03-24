@@ -1,0 +1,17 @@
+
+public class Bill {
+private String BillName;
+private int BillCost;
+private String DDMMYYYY;
+
+
+
+public void setBillName(String BillName){this.BillName=BillName;}
+public void setBillCost(int BillCost){this.BillCost=BillCost;}
+public void setDDMMYYYY(String DDMMYYYY){this.DDMMYYYY=DDMMYYYY;}
+
+public String setBillName(){return BillName;}
+public int setBillCost(){return BillCost;}
+public String setDDMMYYYY(){return DDMMYYYY;}
+
+}
