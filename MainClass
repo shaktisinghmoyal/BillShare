@@ -1,0 +1,96 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.*;
+
+
+public class MainClass {
+	 // JDBC driver name and database URL
+	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+	   static final String DB_URL = "jdbc:mysql://localhost";
+
+	   //  Database credentials
+	   static final String USER = "root";
+	   static final String PASS = "";
+	private static String[] input;
+	private static String discription;
+	private static String query1;
+	private static int query2;
+	private static String[] membersName;
+	   
+	   
+public static void main(String[] s){
+	
+	 Connection conn = null;
+	try{
+		//STEP 2: Register JDBC driver
+	      Class.forName("com.mysql.jdbc.Driver");
+
+	      //STEP 3: Open a connection
+	      System.out.println("Connecting to a selected database...");
+	      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	      System.out.println("Connected database successfully...");	
+	      
+	      System.out.println("write group name if you want to see the details or enter" +
+	      		" YES if you want to create a new Group");
+	      while(true){
+	      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	   
+	      query1=br.readLine().trim();
+	      if(query1.equals("YES")){
+	          System.out.println("input name, dicriptionand number of members in first line with space than members name in second line");	
+	    	  input=br.readLine().trim().split(" ");
+	    	  membersName=br.readLine().trim().split(" ");
+	    	  new GroupDataBase(conn,input[0],input[1],Integer.parseInt(input[2]),membersName).CreateMainDatabaseAndTable();
+	      }
+	      else{
+	    	  System.out.println("print 1 for adding a bill, 2 to get the balances for group member,3 to get a member's overall balance");	
+	    	 query2= Integer.parseInt(br.readLine().trim());
+	    	 
+	    	 switch(query2){
+	    	 case 1:
+	    		 
+	    		 
+	    		 break;
+	    	 
+	    	 case 2:
+	    		 
+	    		 
+	    		 break;
+	    		 
+	    	 case 3:
+	    		 break;
+	    	 
+	    	 }
+	    	  
+	      }
+	      
+	}
+	      }
+	
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }
+	finally{
+	      //finally block used to close resources
+	      
+	      try{
+	         if(conn!=null)
+	            conn.close();
+	      }catch(SQLException se){
+	         se.printStackTrace();
+	      }//end finally try
+	   }//end try
+	
+	
+	
+	
+	
+	
+	
+}
+
+	
+}
