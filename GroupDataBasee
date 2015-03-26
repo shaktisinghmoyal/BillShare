@@ -1,0 +1,128 @@
+import java.sql.*;
+
+
+public class GroupDataBase {
+	private String GroupName,sql;
+	private String GroupDiscription;
+	private int member;
+	private String[] MembersNames;
+	private Connection conn = null;
+	private  Statement stmt;
+    private String DB_URL;
+    static final String USER = "root";
+    static final String PASS = "";
+  GroupDataBase(Connection connection,String name,String discription,int number,String[] membersName){
+	  this.GroupName=name;
+	  this.GroupDiscription=discription;
+	  this.member=number;
+	  this.MembersNames=membersName;
+	  this.conn=connection;
+  }
+	
+	public void CreateMainDatabaseAndTable(){
+		try {
+			 stmt = conn.createStatement();
+			 sql = "CREATE DATABASE "+GroupName;
+			 DB_URL="jdbc:mysql://localhost/"+GroupName;
+		      stmt.executeUpdate(sql);
+		      System.out.println("Database created successfully...");
+		      
+		      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		      
+		      System.out.println("Connected selected database successfully...");
+		      
+		      System.out.println("Creating table in given database...");
+		      stmt = conn.createStatement();
+		      
+		      sql = "CREATE TABLE "+GroupDiscription+" " +
+	                   "("+MembersNames[0]+" VARCHAR(255), " +
+	                   " "+MembersNames[1]+" VARCHAR(255), " + 
+	                   " "+MembersNames[2]+" VARCHAR(255), " + 
+	                   " "+MembersNames[3]+" VARCHAR(255), " + 
+	                   " "+MembersNames[4]+" VARCHAR(255), " + 
+	                   " "+MembersNames[5]+" VARCHAR(255), " + 
+	                   " PRIMARY KEY ( "+MembersNames[0]+" ))";
+		      
+
+		      stmt.executeUpdate(sql);
+		      System.out.println("Created table in given database...");
+		      
+		} catch(SQLException se){
+		      //Handle errors for JDBC
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      //Handle errors for Class.forName
+		      e.printStackTrace();
+		   }finally{
+		      //finally block used to close resources
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }// nothing we can do
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }//end finally try
+		   }
+		
+	}
+	public void BalanceDatabase(Connection con,String databasename,int size,String[] names){
+		
+		try {
+			 stmt = conn.createStatement();
+			 sql = "CREATE DATABASE "+databasename+"BALANCE";
+			 DB_URL="jdbc:mysql://localhost/"+databasename+"BALANCE";
+		      stmt.executeUpdate(sql);
+		      System.out.println("Database created successfully...");
+		      
+		      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		      
+		      System.out.println("Connected selected database successfully...");
+		      
+		      System.out.println("Creating table in given database...");
+		      stmt = conn.createStatement();
+		      
+		      sql = "CREATE TABLE "+GroupDiscription+" " +
+	                   "("+names[0]+" VARCHAR(255), " +
+	                   " "+names[1]+" VARCHAR(255), " + 
+	                   " "+names[2]+" VARCHAR(255), " + 
+	                   " "+names[3]+" VARCHAR(255), " + 
+	                   " "+names[4]+" VARCHAR(255), " + 
+	                   " "+names[5]+" VARCHAR(255), " + 
+	                   " PRIMARY KEY ( "+names[0]+" ))";
+		      
+
+		      stmt.executeUpdate(sql);
+		      System.out.println("Created table in given database...");
+		      
+		} catch(SQLException se){
+		      //Handle errors for JDBC
+		      se.printStackTrace();
+		   }catch(Exception e){
+		      //Handle errors for Class.forName
+		      e.printStackTrace();
+		   }finally{
+		      //finally block used to close resources
+		      try{
+		         if(stmt!=null)
+		            stmt.close();
+		      }catch(SQLException se2){
+		      }// nothing we can do
+		      try{
+		         if(conn!=null)
+		            conn.close();
+		      }catch(SQLException se){
+		         se.printStackTrace();
+		      }//end finally try
+		   }
+		
+		
+		
+	}
+	
+	
+	
+}
